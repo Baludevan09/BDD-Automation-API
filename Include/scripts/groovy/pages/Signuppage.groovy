@@ -79,7 +79,7 @@ public class Signuppage extends BasePage {
 			boolean alertHandled = false
 
 			while (retryCounter < 5 && !alertHandled) {
-				if (WebUI.verifyAlertPresent(1, FailureHandling.OPTIONAL)) {
+				if (WebUI.verifyAlertPresent(5, FailureHandling.OPTIONAL)) {
 					String alertMessageText = WebUI.getAlertText()
 					KeywordUtil.logInfo("✔ Native browser verification pop-up intercepted: " + alertMessageText)
 

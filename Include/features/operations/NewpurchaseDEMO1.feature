@@ -1,8 +1,11 @@
 Feature: purchase a phone
 
+ Background: Setup Browser Environment
+    Given user navigates to demo page
+
 @validdetails @positive @smoke @combo
   Scenario Outline: Purchase a phone using valid details and logout from the application
-    Given user navigates to demo page
+    
     Then User enter valid"<username>"
     And User enters valid"<password>"
     And verify entered user name is correct
@@ -19,8 +22,10 @@ Feature: purchase a phone
       
       
   @invaliddetails @negative 
+  
   Scenario Outline: Authentication should fail with missing or incorrect credentials
-    Given user navigates to demo page
+  
+   # Given user navigates to demo page
     Then User enter valid"<username>"
     And User enters valid"<password>"
     And verify entered user name is correct
@@ -29,7 +34,7 @@ Feature: purchase a phone
     And Enter valid details for purchase and click purchase btn
     Then User able to view purchase details with the order id
     And User click ok button
-    #And click on the logout button
+    And click on the logout button
 
     Examples: 
        | username          | password               |
@@ -38,7 +43,7 @@ Feature: purchase a phone
       
     @validdetails2  @combo
   Scenario Outline: Purchase a phone using valid details and logout from the application
-    Given User click signup btn in home page
+    
     Then User enter valid"<username>"
     And User enters valid"<password>"
     And verify entered user name is correct

@@ -28,15 +28,18 @@ public class LoginPage extends BasePage {
 	}
 
 	public void enterUsername(String username) {
-		try {
-			//			WebUI.delay(5)
-			enterText(usernameField, username)
-		} catch (Exception e) {
-			captureScreenshot()
-			KeywordUtil.markFailedAndStop("❌ [ERROR] Failed to input username '" + username + "': " + e.getMessage())
-			throw new StepFailedException("Username entry failed", e)
-		}
-	}
+    try {
+        enterText(usernameField, username)
+    } catch (com.kms.katalon.core.exception.StepFailedException e) {
+        
+        throw e;
+    } catch (Exception e) {
+        
+        try { WebUI.takeScreenshot(); } catch(Exception ex){}
+        KeywordUtil.markFailedAndStop("❌ [ERROR] Failed to input username '" + username + "': " + e.getMessage());
+        throw new com.kms.katalon.core.exception.StepFailedException("Username entry failed", e);
+    }
+}
 
 	public void enterPasswordSecurely(String encryptedPassword) {
 		try {

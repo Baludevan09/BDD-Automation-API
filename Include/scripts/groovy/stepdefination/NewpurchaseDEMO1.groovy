@@ -1,8 +1,13 @@
 package stepdefination
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kms.katalon.core.webui.driver.DriverFactory
+import org.openqa.selenium.WebDriver
+
 
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.webui.keyword.builtin.TakeFullPageScreenshotKeyword
-
+import io.cucumber.java.After
+import io.cucumber.java.Before
 import io.cucumber.java.en.And
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
@@ -20,21 +25,49 @@ class NewpurchaseDEMO1 {
 	ProductAndCartPage cartPage = new ProductAndCartPage()
 	LogoutPage logoutpage = new LogoutPage()
 	Signuppage signuppage = new Signuppage()
-
-	@Given("user navigates to demo page")
-	public void user_navigates_to_demo_page() {
-		//		loginPage.openApplication()
+	
+	@Before
+	public void setupScenarioEnvironment() {
+		com.kms.katalon.core.util.KeywordUtil.logInfo(" [LIFECYCLE] Initializing browser workspace session...")
 		WebUI.openBrowser('')
 		WebUI.maximizeWindow()
-		String Application_Url = "https://www.demoblaze.com/"
-		WebUI.navigateToUrl(Application_Url)
-		//		String currenturl = WebUI.getUrl()
-		//		assertEquals(currenturl,Application_Url)
-//		WebUI.verifyMatch(WebUI.getUrl(), ".*demoblaze.com.*", true)
-		//		drivers.DriverManager.launchApplication()
-		println("Step1")
 	}
 
+	
+	@After
+	public void teardownScenarioEnvironment() {
+		com.kms.katalon.core.util.KeywordUtil.logInfo(" [LIFECYCLE] Tearing down browser workspace session...")
+		WebUI.closeBrowser()
+	}
+	
+	
+
+@Given("user navigates to demo page")
+def user_navigates_to_demo_page() {
+    boolean isBrowserOpen = false
+    
+    try {
+        // Attempt to check if an active WebDriver session exists
+        WebDriver driver = DriverFactory.getExecutedBrowser()
+        if (driver != null && driver.getWindowHandles().size() > 0) {
+            isBrowserOpen = true
+        }
+    } catch (Exception e) {
+        // No browser session exists yet
+        isBrowserOpen = false
+    }
+    
+    if (!isBrowserOpen) {
+        // First scenario run: Launch a fresh browser window
+        WebUI.openBrowser('')
+        WebUI.maximizeWindow()
+    } else {
+        // Subsequent scenario runs: Wipe session data and reuse the window cleanly
+        WebUI.deleteAllCookies()
+    }
+    
+    WebUI.navigateToUrl("https://www.demoblaze.com/")
+}
 	@Then("User enter valid{string}")
 	public void userenterusername(String username) {
 
@@ -97,6 +130,7 @@ class NewpurchaseDEMO1 {
 	public void clickokbtn() {
 
 		cartPage.clickOkBtn()
+//		WebUI.closeBrowser()
 		println("User click ok button")
 	}
 
