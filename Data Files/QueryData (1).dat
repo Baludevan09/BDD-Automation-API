@@ -7,7 +7,7 @@
    <containsHeaders>true</containsHeaders>
    <csvSeperator></csvSeperator>
    <dataFileGUID>9ffb8204-db94-48c7-8d62-07c1e8725f1f</dataFileGUID>
-   <dataSourceUrl>C:\Users\bjayabharathi\Katalon Studio\pOC_SQL\Data Files\QueryData.xlsx</dataSourceUrl>
+   <dataSourceUrl>C:\Users\bjayabharathi\git\vaish\BDD-Automation-API\Data Files\QueryData.xlsx</dataSourceUrl>
    <driver>ExcelFile</driver>
    <isInternalPath>false</isInternalPath>
    <query></query>
